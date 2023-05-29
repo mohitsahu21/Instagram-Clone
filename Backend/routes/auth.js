@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+require("dotenv").config();
 const mongoose = require('mongoose')
 const userModel = mongoose.model("User");
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const secterKey = process.env.JWT_SECRETKEY;
 
 
 router.post('/signup',(req,res)=>{
@@ -47,7 +50,8 @@ router.post('/signin',(req,res)=> {
         }
         bcrypt.compare(password,savedUser.password).then((doMatch)=>{
            if(doMatch){
-            return res.json({message:"Successfully SignIn"})
+            const token = jwt.sign({_id : savedUser._id}, secterKey);
+           return res.json({token})
            }
            else{
             return res.status(422).json({error:"Invalid email or password"})
