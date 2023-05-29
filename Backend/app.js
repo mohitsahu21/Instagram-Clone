@@ -12,6 +12,8 @@ mongoose.connect(url).then((res)=>{
     
    console.log("error:"+ err)
 })
+app.use(express.json());
+app.use(require('./routes/auth'))
 
 
 
