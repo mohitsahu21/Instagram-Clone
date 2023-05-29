@@ -6,7 +6,12 @@ const userModel = mongoose.model("User");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secterKey = process.env.JWT_SECRETKEY;
+const requireLogin = require('../middelware/requirelogin')
 
+
+router.get('/protected',requireLogin,(req,res)=>{
+    res.send("hello user")
+});
 
 router.post('/signup',(req,res)=>{
     const {name,email,password} = req.body;
