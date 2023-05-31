@@ -16,9 +16,10 @@ module.exports= (req,res,next)=>{
         }
         const {_id} = payload;
         userModel.findById(_id).then((userdata)=>{
-              req.user = userdata
+              req.user = userdata;
+              next()
         })
-        next()
+        
 
     })
 }

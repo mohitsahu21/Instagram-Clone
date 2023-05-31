@@ -4,7 +4,6 @@ require("dotenv").config();
 const app = express();
 const PORT = 5000;
 const url = process.env.DB_URL;
-require('./models/user')
 
 mongoose.connect(url).then((res)=>{
     console.log("connected")
@@ -12,8 +11,13 @@ mongoose.connect(url).then((res)=>{
     
    console.log("error:"+ err)
 })
+
+require('./models/user');
+require('./models/post');
+
 app.use(express.json());
-app.use(require('./routes/auth'))
+app.use(require('./routes/auth'));
+app.use(require('./routes/post'))
 
 
 
