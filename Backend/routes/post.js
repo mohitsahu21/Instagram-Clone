@@ -13,6 +13,15 @@ router.get('/allpost',(req,res)=>{
     })
 })
 
+router.get('/mypost',requiredLogin, (req,res)=>{
+    postModel.find({postedBy:req.user._id}).populate("postedBy","_id name")
+    .then((mypost)=>{
+         res.json({mypost})
+    }).catch((err)=>{
+         console.log(err)
+    })
+})
+
 router.post('/createpost',requiredLogin,(req,res)=>{
     const {title,body} = req.body;
     if(!title || !body){
