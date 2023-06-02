@@ -19,11 +19,11 @@ const Signup = ()=>{
                 type='password'
                 placeholder='Password'
                 />
-                 <button className="btn waves-effect waves-light #42a5f5 blue lighten-1">Sign up
+                 <button className="btn waves-effect waves-light #42a5f5 blue darken-1">Sign up
     
                 </button>
                 <h6 className='bottom'>
-                Have an account? <Link className='blue-text text-darken-2' to="/login">Log in </Link>
+                Have an account? <Link className='blue-text text-darken-1' to="/login">Log in </Link>
                 </h6>
 
             </div>
