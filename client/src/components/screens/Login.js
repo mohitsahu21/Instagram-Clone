@@ -18,7 +18,7 @@ const Login = ()=>{
     
                 </button>
                 <h6 className='bottom'>
-               Don't have an account? <span  ><Link  to="/signup">Sign up </Link></span> 
+               Don't have an account? <Link className='blue-text text-darken-2'  to="/signup">Sign up </Link>
                 </h6>
 
             </div>

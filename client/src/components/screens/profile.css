@@ -1,0 +1,35 @@
+
+.main{
+    max-width: 550px;
+    margin: 0px auto;
+}
+.profilePic{
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+  }
+
+.container{
+    display: flex;
+    justify-content: space-around;
+    margin: 18px 0px;
+    border-bottom: 1px solid grey;
+    width: 100%;
+}  
+.infoContainer{
+    display: flex;
+    width: 108%;
+    justify-content: space-between;
+    
+
+}
+.gallery{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.item{
+  width: 32.5%;
+  margin-bottom: 4px;
+
+}

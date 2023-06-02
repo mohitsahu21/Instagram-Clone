@@ -23,7 +23,7 @@ const Signup = ()=>{
     
                 </button>
                 <h6 className='bottom'>
-                Have an account? <span  ><Link  to="/login">Log in </Link></span> 
+                Have an account? <Link className='blue-text text-darken-2' to="/login">Log in </Link>
                 </h6>
 
             </div>
