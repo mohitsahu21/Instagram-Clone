@@ -25,6 +25,7 @@ const Signup = ()=>{
             })  
         }).then((res) => res.json())
         .then((data) =>{
+           
             if(data.error){
                 M.toast({html: data.error, classes: 'rounded red'})
             }
@@ -33,7 +34,7 @@ const Signup = ()=>{
                 navigate('/login')
 
             }
-        })
+        }).catch((err) => {console.log(err)})
     }
 
     return(
