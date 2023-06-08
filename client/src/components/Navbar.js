@@ -17,6 +17,12 @@ import { UserContext } from '../App';
     (<ul id="nav-mobile" className="right">
        <li><Link to="profile">Profile</Link></li>
       <li><Link to="create">Create Post</Link></li>
+      <li><Link to="login" onClick={()=>{
+         localStorage.clear();
+         dispatch({type:"CLEAR"})
+      }
+       
+      }>Logout</Link></li>
       </ul>)
       :
      ( <ul id="nav-mobile" className="right">
