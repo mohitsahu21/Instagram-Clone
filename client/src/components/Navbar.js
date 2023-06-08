@@ -1,19 +1,31 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../App';
 
  function Navbar(){
+    const {state,dispatch} = useContext(UserContext);
+    
+
     return(
         
   <nav>
   <div className="nav-wrapper white">
-    <Link to="/" className="brand-logo left">Instagram</Link>
-    <ul id="nav-mobile" className="right">
+    <Link to={state ? "/" : "login"} className="brand-logo left">Instagram</Link>
+    {state ?
+    (<ul id="nav-mobile" className="right">
+       <li><Link to="profile">Profile</Link></li>
+      <li><Link to="create">Create Post</Link></li>
+      </ul>)
+      :
+     ( <ul id="nav-mobile" className="right">
       <li><Link to="/login">Login</Link></li>
       <li><Link to="/signup">Sign Up</Link></li>
-      <li><Link to="profile">Profile</Link></li>
-      <li><Link to="create">Create Post</Link></li>
-    </ul>
+      </ul>)}
+    
+      
+    
   </div>
 </nav>
       
