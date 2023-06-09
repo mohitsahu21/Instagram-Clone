@@ -43,6 +43,32 @@ router.post('/createpost',requiredLogin,(req,res)=>{
 
 })
 
+router.put('/like', requiredLogin,(req,res)=>{
+    postModel.findByIdAndUpdate(req.body.postId,{
+        $push:{likes: req.user._id }
+    },{
+            new : true
+        
+    }).then((result)=>{
+        res.json(result)
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
+router.put('/unlike', requiredLogin,(req,res)=>{
+    postModel.findByIdAndUpdate(req.body.postId,{
+        $pull:{likes: req.user._id }
+    },{
+            new : true
+        
+    }).then((result)=>{
+        res.json(result)
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
 module.exports = router
 
 
