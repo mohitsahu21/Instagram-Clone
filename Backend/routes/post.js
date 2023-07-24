@@ -6,6 +6,7 @@ const postModel = mongoose.model('Post')
 
 router.get('/allpost',requiredLogin, (req,res)=>{
     postModel.find().populate("postedBy","_id name")
+    .populate("comments.postedBy","_id name")
     .then((posts)=>{
        res.json({posts})
     }).catch((err)=>{
@@ -15,6 +16,7 @@ router.get('/allpost',requiredLogin, (req,res)=>{
 
 router.get('/mypost',requiredLogin, (req,res)=>{
     postModel.find({postedBy:req.user._id}).populate("postedBy","_id name")
+    .populate("comments.postedBy","_id name")
     .then((mypost)=>{
         
          res.json({mypost})
@@ -49,7 +51,9 @@ router.put('/like', requiredLogin,(req,res)=>{
     },{
             new : true
         
-    }).then((result)=>{
+    }).populate("postedBy","_id name")
+    .populate("comments.postedBy","_id name")
+    .then((result)=>{
         res.json(result)
     }).catch((err)=>{
         console.log(err)
@@ -62,11 +66,29 @@ router.put('/unlike', requiredLogin,(req,res)=>{
     },{
             new : true
         
-    }).then((result)=>{
+    }).populate("postedBy","_id name")
+    .populate("comments.postedBy","_id name")
+    .then((result)=>{
         res.json(result)
     }).catch((err)=>{
         console.log(err)
     })
+})
+
+router.put('/comment' , requiredLogin,(req,res) =>{
+    const comment = {
+        text : req.body.text,
+        postedBy : req.user._id
+    }
+    postModel.findByIdAndUpdate(req.body.postId,{
+        $push:{ comments : comment}},{
+            new: true
+        }).populate("postedBy","_id name")
+        .populate("comments.postedBy","_id name")
+        .then((result)=>{ res.json(result)})
+        .catch((err)=>{
+            console.log(err)
+        })
 })
 
 module.exports = router
