@@ -5,7 +5,9 @@ import './home.css'
 
 const Home = ()=>{
     const {state,dispatch} = useContext(UserContext);
-    const [data,setData] = useState([])
+    const [commentText, setCommentText] = useState('');
+    const [data,setData] = useState([]);
+   
     useEffect(()=>{
         fetch('/allpost' , {
             headers: {
@@ -14,6 +16,7 @@ const Home = ()=>{
         }).then(res=>res.json())
         .then((result) => {
             console.log(result)
+            
             setData(result.posts)})
     },[])
 
@@ -44,6 +47,17 @@ const Home = ()=>{
 
        
     }
+    const deletePost = (postId) => {
+        console.log(postId)
+        fetch(`deletepost/${postId}`,{
+           method: "delete",
+           headers:{
+               "Authorization": "Bearer "+ localStorage.getItem("jwt")
+           }
+        }).then((res) => res.json()).
+        then((data) => setData(data))
+        .catch(((err) => console.log(err)))
+}
     const unlikePost = (id)=>{
         fetch('unlike',{
          method:'PUT',
@@ -57,7 +71,7 @@ const Home = ()=>{
  
         }).then(res => res.json())
         .then(result => {
-            console.log(result)
+            
            const newData = data.map((item) =>{
             if(item._id == result._id){
                 return result
@@ -69,6 +83,34 @@ const Home = ()=>{
            setData(newData)
         })
      }
+
+     const deleteComment = (postId,commentId)=>{
+        fetch("/deletecomment",{
+            method: "put",
+            headers: {
+                "Content-Type":"application/json",
+                "Authorization": "Bearer "+ localStorage.getItem("jwt")
+            },
+            body:JSON.stringify({
+                postId,
+                commentId
+            })
+        }).then((res) => res.json())
+        .then(result => {
+        
+           const newData = data.map((item) =>{
+            if(item._id == result._id){
+                return result
+            }
+            else{
+                return item
+            }
+           })
+           setData(newData)
+        }).catch((err)=> console.log(err));
+             
+    }
+
      const makeComment = (text,postId)=>{
         fetch("/comment",{
             method: "put",
@@ -93,7 +135,6 @@ const Home = ()=>{
            })
            setData(newData)
         }).catch((err)=> console.log(err));
-
      }
     return(
          
@@ -102,7 +143,8 @@ const Home = ()=>{
 
             {data.map((item) => {
                 return <div className='card home-card' key={item._id}>
-                <h5>{item.postedBy.name}</h5>
+                <h5>{item.postedBy.name} {item.postedBy._id == state._id  && <i  style={{float:"right",cursor:"pointer"}} className="material-icons" onClick={()=> {deletePost(item._id)}}>delete</i>}</h5>
+               
                 <div className='card-image'>
                    <img src={item.photo}/>
                 </div>
@@ -110,11 +152,11 @@ const Home = ()=>{
                 
                 {item.likes.includes(state._id)
                 ? 
-                <i onClick={()=>{unlikePost(item._id)}} className="material-icons red-text">favorite</i>
+                <i style={{cursor:"pointer"}} onClick={()=>{unlikePost(item._id)}} className="material-icons red-text">favorite</i>
                 //   <i onClick={()=>{unlikePost(item._id)}} className="material-icons">thumb_down</i>
                     
                 :
-                <i onClick={()=>{likePost(item._id)}} className="material-icons">favorite_border</i>
+                <i  style={{cursor:"pointer"}} onClick={()=>{likePost(item._id)}} className="material-icons">favorite_border</i>
                 //   <i onClick={()=>{likePost(item._id)}} className="material-icons">thumb_up</i>
                 }
                 
@@ -124,16 +166,26 @@ const Home = ()=>{
                     <p>{item.body}</p>
                     {item.comments.map((record)=>{
                         return (
-                            <h6 key={record._id}><span style={{fontWeight:"500"}}>{record.postedBy.name}</span> {record.text} </h6>
+                            <h6 key={record._id}><span style={{fontWeight:"500"}}>{record.postedBy.name}</span> {record.text}{(item.postedBy._id == state._id || record.postedBy._id == state._id)  && <i  style={{float:"right" , cursor: "pointer"}} className="material-icons" onClick={()=> {deleteComment(item._id,record._id)}}>delete</i>} </h6>
                         )
                     })}
                     <form onSubmit={(e)=>{
                         e.preventDefault();
-                        makeComment(e.target[0].value,item._id)
+                        if (!commentText.trim()) {
+                            
+                            return;
+                          }
+                
+                        makeComment(commentText,item._id);
+                        setCommentText('');  // Reset the input value after submitting the form
+                          
                     }
-                         
-                    }>
-                        <input type='text' placeholder='add a comment'/>
+                    } style={{"display" : 'flex'}}>
+                        <input type='text' placeholder='add a comment' value={commentText} 
+                        onChange={(e) => setCommentText(e.target.value)} />
+                      
+                    
+
                         </form>
                     
                 </div>

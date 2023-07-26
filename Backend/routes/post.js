@@ -90,6 +90,46 @@ router.put('/comment' , requiredLogin,(req,res) =>{
             console.log(err)
         })
 })
+router.put("/deletecomment",requiredLogin, async(req,res)=>{
+         const postId = req.body.postId;
+         const commentId = req.body.commentId;
+         try{
+            const data = await postModel.findByIdAndUpdate(postId,{
+                $pull:{comments: {_id: commentId}}
+            },{
+                new : true
+            
+        }).populate("postedBy","_id name")
+            .populate("comments.postedBy","_id name")
+           
+           res.json(data)
+         }
+         catch (error){
+            res.send({ status : "error"});
+         }
+
+
+
+
+} )
+
+router.delete("/deletepost/:postId",requiredLogin, async(req,res)=>{
+    let id = req.params.postId;
+    try{
+        await postModel.findByIdAndDelete({_id : id});
+   
+    
+  const data = await  postModel.find().populate("postedBy","_id name")
+  .populate("comments.postedBy","_id name");
+   
+   res.json(data)
+}
+   
+catch(error)
+{
+    res.send({ status : "error"});
+} 
+})
 
 module.exports = router
 
