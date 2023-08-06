@@ -129,7 +129,7 @@ catch(error)
 {
     res.send({ status : "error"});
 } 
-})
+});
 
 module.exports = router
 

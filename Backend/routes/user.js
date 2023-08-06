@@ -31,6 +31,64 @@ router.get('/user/:id',requiredLogin, async(req,res)=>{
     }
 })
 
+router.put('/follow',requiredLogin,async (req,res)=>{
+   try{
+    const data = await userModel.findByIdAndUpdate(req.body.followId,{
+        $push:{followers:req.user._id} 
+    },{
+        new:true
+    })
+    if(data){
+      const user=await userModel.findByIdAndUpdate(req.user._id,{
+            $push:{following:req.body.followId} 
+        },{
+            new:true
+        }).select("-password")
+        if(user){
+        res.json(user)}
+        else{
+            return res.status(422).json({error: "User not found"})
+        }
+    }
+    else{
+        return res.status(422).json({error: "User not found"})
+    }
+   }
+   catch (error){
+    res.send({ status : "error"});
+}
+    
+})
+
+router.put('/unfollow', requiredLogin, async (req,res)=>{
+   try{
+    const data = await userModel.findByIdAndUpdate(req.body.unfollowId,{
+        $pull:{followers:req.user._id} 
+    },{
+        new:true
+    })
+    if(data){
+      const user= await  userModel.findByIdAndUpdate(req.user._id,{
+            $pull:{following:req.body.unfollowId} 
+        },{
+            new:true
+        }).select("-password")
+        if(user){
+        res.json(user)}
+        else{
+            return res.status(422).json({error: "User not found"})
+        }
+    }
+    else{
+        return res.status(422).json({error: "User not found"})
+    }
+   }
+   catch (error){
+    res.send({ status : "error"});
+}
+    
+})
+
 
 
 module.exports = router;

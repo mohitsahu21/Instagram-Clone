@@ -28,7 +28,7 @@ const Login = ()=>{
             })  
         }).then((res) => res.json())
         .then((data) =>{
-            console.log(data.user)
+           
             if(data.error){
                 M.toast({html: data.error, classes: 'rounded red'})
             }

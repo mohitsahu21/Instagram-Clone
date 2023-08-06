@@ -13,7 +13,7 @@ const Profile = ()=>{
         }).then(res=>res.json())
         .then((result) => {
             setMyPosts(result.mypost)
-            console.log()})
+           })
     },[])
     return(
         <div className='main'>
