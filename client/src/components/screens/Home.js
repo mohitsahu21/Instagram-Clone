@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../App';
 import './home.css'
+import { Link } from 'react-router-dom';
 
 const Home = ()=>{
     const {state,dispatch} = useContext(UserContext);
@@ -48,7 +49,7 @@ const Home = ()=>{
        
     }
     const deletePost = (postId) => {
-        console.log(postId)
+  
         fetch(`deletepost/${postId}`,{
            method: "delete",
            headers:{
@@ -143,7 +144,7 @@ const Home = ()=>{
 
             {data.map((item) => {
                 return <div className='card home-card' key={item._id}>
-                <h5>{item.postedBy.name} {item.postedBy._id == state._id  && <i  style={{float:"right",cursor:"pointer"}} className="material-icons" onClick={()=> {deletePost(item._id)}}>delete</i>}</h5>
+                <h6><Link to={item.postedBy._id !== state._id ? `/profile/${item.postedBy._id}` : `/profile/`}> <span className='userName'>{item.postedBy.name}</span></Link> {item.postedBy._id == state._id  && <i  style={{float:"right",cursor:"pointer"}} className="material-icons" onClick={()=> {deletePost(item._id)}}>delete</i>}</h6>
                
                 <div className='card-image'>
                    <img src={item.photo}/>
