@@ -10,6 +10,7 @@ import CreatePost from './components/screens/CreatePost';
 import { createContext, useEffect, useReducer } from 'react';
 import { reducer , initialState} from './components/reducer/useReducer';
 import UserProfile from './components/screens/UserProfile';
+import FollowingUserPosts from './components/screens/FollowingUserPosts';
 
 export const UserContext = createContext();
 
@@ -42,6 +43,7 @@ useEffect(()=>{
     <Route exact path='/profile' element={<Profile/>}/>  
     <Route path='/signup' element={<Signup/>}/>
     <Route path='/create' element={<CreatePost/>}/>   
+    <Route path='/myfollowingPosts' element={<FollowingUserPosts/>}/>   
     <Route path='/profile/:userid' element={<UserProfile/>}/>   
     </Routes>
     </UserContext.Provider>

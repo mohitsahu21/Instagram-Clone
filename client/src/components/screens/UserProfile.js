@@ -67,7 +67,8 @@ const UserProfile = ()=>{
           <div className='main'>
           <div className='container'>
               <div>
-                  <img className='profilePic' src='https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHBlcnNvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60'/>
+                  <img className='profilePic' 
+                  src={userPosts.user.profilePic} alt='profilePic'/>
               </div>
               <div>
                   <h4>{userPosts.user.name}</h4>

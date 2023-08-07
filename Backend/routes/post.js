@@ -13,6 +13,16 @@ router.get('/allpost',requiredLogin, (req,res)=>{
         console.log(err)
     })
 })
+router.get('/getfollowingposts',requiredLogin, (req,res)=>{
+    postModel.find({postedBy:{$in:req.user.following}})
+    .populate("postedBy","_id name")
+    .populate("comments.postedBy","_id name")
+    .then((posts)=>{
+       res.json({posts})
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
 
 router.get('/mypost',requiredLogin, (req,res)=>{
     postModel.find({postedBy:req.user._id}).populate("postedBy","_id name")
