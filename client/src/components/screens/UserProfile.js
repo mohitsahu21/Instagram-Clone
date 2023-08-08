@@ -65,7 +65,7 @@ const UserProfile = ()=>{
         <>
         {userPosts ?    
           <div className='main'>
-          <div className='container'>
+          <div style={{ "border-bottom": "1px solid grey"}} className='container'>
               <div>
                   <img className='profilePic' 
                   src={userPosts.user.profilePic} alt='profilePic'/>
@@ -107,7 +107,9 @@ const UserProfile = ()=>{
       </div> 
 
         :
-        <h2>Loading...!</h2>
+        <div class="progress">
+      <div class="indeterminate"></div>
+  </div>
         }
          
         </>

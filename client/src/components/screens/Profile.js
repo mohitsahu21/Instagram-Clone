@@ -3,17 +3,20 @@ import './profile.css'
 import { UserContext } from '../../App';
 
 const Profile = ()=>{
+    const [loading, setLoading] = useState(false);
     const [myPosts,setMyPosts] = useState([]);
     const {state,dispatch} = useContext(UserContext);
     const [image,setImage] = useState("")
    
     useEffect(()=>{
+        setLoading(true);
         fetch('/mypost' , {
             headers: {
                 "Authorization" : "Bearer " + localStorage.getItem("jwt")
             }
         }).then(res=>res.json())
         .then((result) => {
+            setLoading(false);
             setMyPosts(result.mypost)
            })
     },[])
@@ -60,60 +63,63 @@ const Profile = ()=>{
     }
     return(
         <>
-            {myPosts
+            {loading
                 ?
+                <div class="progress">
+                <div class="indeterminate"></div>
+            </div>
+                :
                 <div className='main'>
-                    <div className='main_container'>
+                <div className='main_container'>
 
-                    
-                    <div className='container'>
-                    
-                        <div>
-                            
-                            <img className='profilePic' 
-                            src={state? state.profilePic: "https://res.cloudinary.com/dhryrs3lr/image/upload/v1691422523/uynekzpqngfnx2jmgmnl.jpg"} alt='profilepic' />
-                         
-                        </div>
+                
+                <div className='container'>
+                
+                    <div>
                         
-                        
-                        
-                        <div>
-                            <h4>{state ? state.name : "Loading"}</h4>
-                            <h5>{state ? state.email : "Loading"}</h5>
-                            <div className='infoContainer'>
-                                <h6>{myPosts? myPosts.length : "0"} posts</h6>
-                                <h6>{state ? state.followers.length : "0"} followers</h6>
-                                <h6>{state ? state.following.length : "0"} following</h6>
-                            </div>
-                        </div>
-                        
-                       
-                        
-                        
+                        <img className='profilePic' 
+                        src={state? state.profilePic: "https://res.cloudinary.com/dhryrs3lr/image/upload/v1691422523/uynekzpqngfnx2jmgmnl.jpg"} alt='profilepic' />
+                     
                     </div>
-                    <div className='edit_pic_btn'>
-                        <div className="file-field input-field">
-                                    <div className="btn #64b5f6 blue darken-1">
-                                        <span>Update pic</span>
-                                        <input type="file" onChange={(e) => updateProfilePic(e.target.files[0])} />
-                                    </div>
-                                    <div className="file-path-wrapper">
-                                        <input className="file-path validate" type="text" />
-                                    </div>
+                    
+                    
+                    
+                    <div>
+                        <h4>{state ? state.name : "Loading"}</h4>
+                        <h5>{state ? state.email : "Loading"}</h5>
+                        <div className='infoContainer'>
+                            <h6>{myPosts? myPosts.length : "0"} posts</h6>
+                            <h6>{state ? state.followers.length : "0"} followers</h6>
+                            <h6>{state ? state.following.length : "0"} following</h6>
+                        </div>
+                    </div>
+                    
+                   
+                    
+                    
+                </div>
+                <div className='edit_pic_btn'>
+                    <div className="file-field input-field">
+                                <div className="btn #64b5f6 blue darken-1">
+                                    <span>Update pic</span>
+                                    <input type="file" onChange={(e) => updateProfilePic(e.target.files[0])} />
                                 </div>
-                        </div>
-                    </div>
-                    
-                    <div className='gallery'>
-                        {myPosts.map((item) => {
-                            return <img key={item._id} className='item' src={item.photo} alt={item.title} />
-                        })}
-
-
+                                <div className="file-path-wrapper">
+                                    <input className="file-path validate" type="text" />
+                                </div>
+                            </div>
                     </div>
                 </div>
-                :
-                <h2>Loading...!</h2>
+                
+                <div className='gallery'>
+                    {myPosts.map((item) => {
+                        return <img key={item._id} className='item' src={item.photo} alt={item.title} />
+                    })}
+
+
+                </div>
+            </div>
+                
             }
 
         </>

@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../App';
 import './home.css'
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const FollowingUserPosts = ()=>{
+    const [loading, setLoading] = useState(false);
     const {state,dispatch} = useContext(UserContext);
     const [commentText, setCommentText] = useState('');
     const [data,setData] = useState([]);
    
     useEffect(()=>{
+        setLoading(true);
         fetch('/getfollowingposts' , {
             headers: {
                 "Authorization" : "Bearer " + localStorage.getItem("jwt")
@@ -17,7 +19,7 @@ const FollowingUserPosts = ()=>{
         }).then(res=>res.json())
         .then((result) => {
             
-            
+            setLoading(false);
             setData(result.posts)})
     },[])
 
@@ -139,8 +141,15 @@ const FollowingUserPosts = ()=>{
      }
     return(
          
-
-        <div className='home'>
+        <>
+        {
+            loading
+            ?
+            <div class="progress">
+            <div class="indeterminate"></div>
+        </div>
+            :
+            <div className='home'>
 
             {data.map((item) => {
                 return <div className='card home-card' key={item._id}>
@@ -196,6 +205,9 @@ const FollowingUserPosts = ()=>{
 
           
         </div>
+        }
+        
+        </>
     )
 }
 export default FollowingUserPosts;

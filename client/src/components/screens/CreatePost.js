@@ -6,12 +6,14 @@ import axios from "axios";
 
 const CreatePost =  ()=>{
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [title,setTitle] = useState("");
     const [body,setBody] = useState("");
     const [image,setImage] = useState("");
     const [url,setUrl] = useState("");
     useEffect(()=>{
         if(url){
+        setLoading(true);
         fetch('/createpost',
         {
             method:"POST",
@@ -26,11 +28,12 @@ const CreatePost =  ()=>{
             })  
         }).then((res) => res.json())
         .then((data) =>{
-           
+            setLoading(false);
             if(data.error){
                 M.toast({html: data.error, classes: 'rounded red'})
             }
             else{
+                
                 M.toast({html: "Post Created Successfully", classes: 'rounded green'});
                 navigate('/')
 
@@ -41,18 +44,28 @@ const CreatePost =  ()=>{
 
 
     const postDetails= ()=>{
+        setLoading(true);
         const data = new FormData()
         data.append("file",image);
         data.append("upload_preset","insta-clone");
         data.append("cloud_name","dhryrs3lr");
       axios.post("https://api.cloudinary.com/v1_1/dhryrs3lr/image/upload",data)
-        .then((res)=>{setUrl(res.data.secure_url)})
+        .then((res)=>{
+            setLoading(false);
+            setUrl(res.data.secure_url)})
         .catch(err=>console.log(err))
         
     }
 
 
     return (
+        <>
+        {loading
+        ?
+        <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+        :
         <div className='card' style={{
             margin: "30px auto",
             maxWidth: "500px",
@@ -78,6 +91,10 @@ const CreatePost =  ()=>{
     
     </button>
         </div>
+
+    }
+        
+        </>
     )
 }
 
