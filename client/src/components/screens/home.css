@@ -7,7 +7,11 @@
 .userName{
     padding: 10px;
     font-weight: 500;
+    
 
+}
+.userName:hover{
+    color: gray;
 }
 .user_details{
     display: flex; 
@@ -25,4 +29,8 @@
   
    right: 0;
    padding: 10px 5px;
+}
+
+.material-icons:hover{
+    color: gray;
 }
