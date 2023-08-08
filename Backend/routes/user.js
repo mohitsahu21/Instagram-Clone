@@ -89,6 +89,27 @@ router.put('/unfollow', requiredLogin, async (req,res)=>{
     
 })
 
+router.put('/updateprofilepic',requiredLogin,async (req,res)=>{
+    try{
+         
+          const user = await userModel.findByIdAndUpdate(req.user._id,{profilePic:req.body.profilePic},{
+            new:true
+        });
+        
+          if (!user){
+            return res.status(422).json({error:"Pic cannot post"})
+          }
+          else{
+            res.json(user)
+          }
+
+    }
+    catch (error){
+        res.send({ status : "error"});
+    
+    }
+})
+
 
 
 module.exports = router;

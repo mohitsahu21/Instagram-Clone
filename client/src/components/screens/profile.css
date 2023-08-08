@@ -8,14 +8,18 @@
     height: 160px;
     border-radius: 50%;
   }
+  .main_container{
+    border-bottom: 1px solid grey;
+  }
 
 .container{
     display: flex;
     justify-content: space-around;
     margin: 18px 0px;
-    border-bottom: 1px solid grey;
+   
     width: 100%;
 }  
+
 .infoContainer{
     display: flex;
     width: 108%;
@@ -34,3 +38,8 @@
   margin-bottom: 4px;
   height: 200px;
 }
+.edit_pic_btn{
+   margin: 10px 0 10px 55px;
+   
+}
+
