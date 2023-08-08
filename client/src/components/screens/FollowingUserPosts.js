@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../App';
 import './home.css'
 import { Link, useLoaderData } from 'react-router-dom';
+import moment from "moment";
 
 const FollowingUserPosts = ()=>{
     const [loading, setLoading] = useState(false);
@@ -156,7 +157,10 @@ const FollowingUserPosts = ()=>{
                <div className='user_details'>
                 <Link to={item.postedBy._id !== state._id ? `/profile/${item.postedBy._id}` : `/profile/`}> <img  src={item.postedBy.profilePic}/></Link>
 
+                <div className='userfield'>
             <h6><Link to={item.postedBy._id !== state._id ? `/profile/${item.postedBy._id}` : `/profile/`}> <span className='userName'>{item.postedBy.name}</span></Link> </h6>
+           <span className='date'>Post {moment(item.date).fromNow()} </span>
+            </div>
             
             {item.postedBy._id == state._id  && <i  style={{float:"right",cursor:"pointer"}} 
             id='delete_icon' className="material-icons" onClick={()=> {deletePost(item._id)}}>delete</i>}
