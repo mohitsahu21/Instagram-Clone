@@ -107,8 +107,8 @@ const UserProfile = ()=>{
       </div> 
 
         :
-        <div class="progress">
-      <div class="indeterminate"></div>
+        <div className="progress">
+      <div className="indeterminate"></div>
   </div>
         }
          
