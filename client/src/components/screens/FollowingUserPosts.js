@@ -153,7 +153,15 @@ const FollowingUserPosts = ()=>{
 
             {data.map((item) => {
                 return <div className='card home-card' key={item._id}>
-                <h6><Link to={item.postedBy._id !== state._id ? `/profile/${item.postedBy._id}` : `/profile/`}> <span className='userName'>{item.postedBy.name}</span></Link> {item.postedBy._id == state._id  && <i  style={{float:"right",cursor:"pointer"}} className="material-icons" onClick={()=> {deletePost(item._id)}}>delete</i>}</h6>
+               <div className='user_details'>
+                <Link to={item.postedBy._id !== state._id ? `/profile/${item.postedBy._id}` : `/profile/`}> <img  src={item.postedBy.profilePic}/></Link>
+
+            <h6><Link to={item.postedBy._id !== state._id ? `/profile/${item.postedBy._id}` : `/profile/`}> <span className='userName'>{item.postedBy.name}</span></Link> </h6>
+            
+            {item.postedBy._id == state._id  && <i  style={{float:"right",cursor:"pointer"}} 
+            id='delete_icon' className="material-icons" onClick={()=> {deletePost(item._id)}}>delete</i>}
+
+                </div>
                
                 <div className='card-image'>
                    <img src={item.photo}/>

@@ -5,7 +5,7 @@ const requiredLogin = require('../middelware/requirelogin')
 const postModel = mongoose.model('Post')
 
 router.get('/allpost',requiredLogin, (req,res)=>{
-    postModel.find().populate("postedBy","_id name")
+    postModel.find().populate("postedBy","_id name profilePic")
     .populate("comments.postedBy","_id name")
     .then((posts)=>{
        res.json({posts})
@@ -15,7 +15,7 @@ router.get('/allpost',requiredLogin, (req,res)=>{
 })
 router.get('/getfollowingposts',requiredLogin, (req,res)=>{
     postModel.find({postedBy:{$in:req.user.following}})
-    .populate("postedBy","_id name")
+    .populate("postedBy","_id name profilePic")
     .populate("comments.postedBy","_id name")
     .then((posts)=>{
        res.json({posts})
@@ -25,7 +25,7 @@ router.get('/getfollowingposts',requiredLogin, (req,res)=>{
 })
 
 router.get('/mypost',requiredLogin, (req,res)=>{
-    postModel.find({postedBy:req.user._id}).populate("postedBy","_id name")
+    postModel.find({postedBy:req.user._id}).populate("postedBy","_id name profilePic")
     .populate("comments.postedBy","_id name")
     .then((mypost)=>{
         
@@ -61,7 +61,7 @@ router.put('/like', requiredLogin,(req,res)=>{
     },{
             new : true
         
-    }).populate("postedBy","_id name")
+    }).populate("postedBy","_id name profilePic")
     .populate("comments.postedBy","_id name")
     .then((result)=>{
         res.json(result)
@@ -76,7 +76,7 @@ router.put('/unlike', requiredLogin,(req,res)=>{
     },{
             new : true
         
-    }).populate("postedBy","_id name")
+    }).populate("postedBy","_id name profilePic")
     .populate("comments.postedBy","_id name")
     .then((result)=>{
         res.json(result)
@@ -93,7 +93,7 @@ router.put('/comment' , requiredLogin,(req,res) =>{
     postModel.findByIdAndUpdate(req.body.postId,{
         $push:{ comments : comment}},{
             new: true
-        }).populate("postedBy","_id name")
+        }).populate("postedBy","_id name profilePic")
         .populate("comments.postedBy","_id name")
         .then((result)=>{ res.json(result)})
         .catch((err)=>{
@@ -109,7 +109,7 @@ router.put("/deletecomment",requiredLogin, async(req,res)=>{
             },{
                 new : true
             
-        }).populate("postedBy","_id name")
+        }).populate("postedBy","_id name profilePic")
             .populate("comments.postedBy","_id name")
            
            res.json(data)
@@ -129,7 +129,7 @@ router.delete("/deletepost/:postId",requiredLogin, async(req,res)=>{
         await postModel.findByIdAndDelete({_id : id});
    
     
-  const data = await  postModel.find().populate("postedBy","_id name")
+  const data = await  postModel.find().populate("postedBy","_id name profilePic")
   .populate("comments.postedBy","_id name");
    
    res.json(data)
