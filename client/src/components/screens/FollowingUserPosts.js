@@ -197,7 +197,8 @@ const FollowingUserPosts = ()=>{
                       
                 {item.comments.map((record)=>{
                     return (
-                        <h6  style={commentsId== item._id || item.comments.indexOf(record)== item.comments.length-1 ? {display:"block"}:{display:"none"} } key={record._id}>{record.postedBy.name}<span id='title'> {record.text}</span>{(item.postedBy._id == state._id || record.postedBy._id == state._id)  && <i  style={{float:"right" , cursor: "pointer"}} className="material-icons" onClick={()=> {deleteComment(item._id,record._id)}}>delete</i>} </h6>
+                        <h6  style={commentsId== item._id || item.comments.indexOf(record)== item.comments.length-1 ? {display:"block"}:{display:"none"} } key={record._id}>{record.postedBy.name}<span id='title'> {record.text}</span><br></br> <span className='commentDate'>{moment(record.date).fromNow()}</span> {(item.postedBy._id == state._id || record.postedBy._id == state._id)  && <i  style={{float:"right" , cursor: "pointer"}} className="material-icons" onClick={()=> {deleteComment(item._id,record._id)}}>delete</i>} </h6>
+                        
                     )
                 })}
                     <form onSubmit={(e)=>{

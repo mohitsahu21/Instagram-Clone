@@ -57,6 +57,11 @@ h6{
   color: gray;
   cursor: pointer;
 }
+.commentDate{
+    color: grey;
+    font-size: small;
+    font-weight: 400;
+}
 
 
 
