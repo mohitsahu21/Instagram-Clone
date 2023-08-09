@@ -45,3 +45,18 @@
 .date{
     margin-left: 10px;
 }
+h6{
+    font-weight: 500;
+    font-size: medium;
+}
+#title{
+    font-weight: 400;
+    font-size: medium;
+}
+.show_comments{
+  color: gray;
+  cursor: pointer;
+}
+
+
+

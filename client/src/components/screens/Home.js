@@ -10,6 +10,8 @@ const Home = ()=>{
     const {state,dispatch} = useContext(UserContext);
     const [commentText, setCommentText] = useState('');
     const [data,setData] = useState([]);
+    const [commentsId,setCommentsId] = useState();
+    const [showcomment,setShowComment] = useState(true);
    
     useEffect(()=>{
         setLoading(true);
@@ -140,6 +142,11 @@ const Home = ()=>{
            setData(newData)
         }).catch((err)=> console.log(err));
      }
+
+    const showcomments= (id)=>{
+          setCommentsId(id);
+          setShowComment(!showcomment);
+    }
     return(
          
         <>
@@ -184,13 +191,18 @@ const Home = ()=>{
             
             
                 <h6>{item.likes.length} likes</h6>
-                <h6>{item.title}</h6>
-                <p>{item.body}</p>
+                <h6>{item.postedBy.name} <span id='title'>{item.title}</span></h6>
+                
+                {item.comments.length<=1 ? <p className='show_comments'>{item.comments.length} comment</p> : (showcomment ? <p className='show_comments' onClick={()=>{showcomments(item._id)}}>View all {item.comments.length} comments</p> : <p className='show_comments' onClick={()=>{showcomments(null)}}>View all {item.comments.length} comments</p> ) }
+                
+                
                 {item.comments.map((record)=>{
                     return (
-                        <h6 key={record._id}><span style={{fontWeight:"500"}}>{record.postedBy.name}</span> {record.text}{(item.postedBy._id == state._id || record.postedBy._id == state._id)  && <i  style={{float:"right" , cursor: "pointer"}} className="material-icons" onClick={()=> {deleteComment(item._id,record._id)}}>delete</i>} </h6>
+                        <h6  style={commentsId== item._id || item.comments.indexOf(record)== item.comments.length-1 ? {display:"block"}:{display:"none"} } key={record._id}>{record.postedBy.name}<span id='title'> {record.text}</span>{(item.postedBy._id == state._id || record.postedBy._id == state._id)  && <i  style={{float:"right" , cursor: "pointer"}} className="material-icons" onClick={()=> {deleteComment(item._id,record._id)}}>delete</i>} </h6>
                     )
                 })}
+                
+                
                 <form onSubmit={(e)=>{
                     e.preventDefault();
                     if (!commentText.trim()) {
@@ -203,7 +215,7 @@ const Home = ()=>{
                       
                 }
                 } style={{"display" : 'flex'}}>
-                    <input type='text' placeholder='add a comment' value={commentText} 
+                    <input type='text' placeholder='Add a comment...' value={commentText} 
                     onChange={(e) => setCommentText(e.target.value)} />
                   
                 
