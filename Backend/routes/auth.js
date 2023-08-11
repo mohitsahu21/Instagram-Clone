@@ -6,9 +6,26 @@ const userModel = mongoose.model("User");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secterKey = process.env.JWT_SECRETKEY;
-const requireLogin = require('../middelware/requirelogin')
+const requireLogin = require('../middelware/requirelogin');
+const nodemailer = require("nodemailer");
+const mailKey = process.env.Mailkey;
+const mailId = process.env.MailId;
 
+const transporter =  nodemailer.createTransport({
+    service : 'gmail',
+     
+     auth: {
+       // TODO: replace `user` and `pass` values from <https://forwardemail.net>
+       user: mailId,
+       pass: mailKey
+     }
+   });
 
+router.get("/sendmail",async (req,res)=>{
+   
+  console.log("Message sent: %s", info.messageId);
+  res.json(info)
+})
 
 
 router.post('/signup',(req,res)=>{
@@ -29,13 +46,22 @@ router.post('/signup',(req,res)=>{
                 email,
                 password: hashedPass
             })
-            user.save().then((user)=>{
+            user.save()
+            .then((user)=>{
+                    transporter.sendMail({
+                    from: '"InstaClone" <mohitsahujbp@gmail.com>', // sender address
+                    to: user.email, // list of receivers
+                    subject: "Signup Success", // Subject line
+                    text: "Welcome to InstaClone", // plain text body
+                    html: "<b>Welcome to InstaClone</b>", // html body
+                  });
+
                 res.json({message : "Signup successfully"})
             }).catch((err)=>{
                 console.log(err)
             })
         })
-       
+      
     }).catch((err)=>{
         console.log(err)
     })
