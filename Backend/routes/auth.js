@@ -3,6 +3,7 @@ const router = express.Router();
 require("dotenv").config();
 const mongoose = require('mongoose')
 const userModel = mongoose.model("User");
+const crypto  =require('crypto');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secterKey = process.env.JWT_SECRETKEY;
@@ -20,12 +21,6 @@ const transporter =  nodemailer.createTransport({
        pass: mailKey
      }
    });
-
-router.get("/sendmail",async (req,res)=>{
-   
-  console.log("Message sent: %s", info.messageId);
-  res.json(info)
-})
 
 
 router.post('/signup',(req,res)=>{
@@ -91,6 +86,40 @@ router.post('/signin',(req,res)=> {
         })
     })
 
+});
+
+router.post('/reset-password',(req,res)=>{
+     crypto.randomBytes(32,(err,buffer)=>{
+        if(err){
+            console.log(err)
+        }
+        const token = buffer.toString("hex");
+        userModel.findOne({email:req.body.email})
+        .then((user)=>{
+            if(!user){
+               return res.status(422).json({error: "User don't not exist with that email"})
+            }
+            user.resetToken = token;
+            user.expireToken= Date.now() + 3600000;
+            user.save().then((result) => {
+                transporter.sendMail({
+                    from: '"InstaClone" <mohitsahujbp@gmail.com>', // sender address
+                    to: user.email, // list of receivers
+                    subject: "Password Reset Link", // Subject line
+                    html: `
+                    <p>You requested for password reset</p>
+                    <h5>click in this <a href="http://localhost:3000/reset/${token}">link</a>link to reset password</h5>`, // html body
+                  });
+                  res.json({message:"Please check your email,password reset link has been sent to your email"})
+
+            })
+            
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+
+     })
 })
 
 module.exports = router;
