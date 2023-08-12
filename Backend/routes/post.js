@@ -7,6 +7,7 @@ const postModel = mongoose.model('Post')
 router.get('/allpost',requiredLogin, (req,res)=>{
     postModel.find().populate("postedBy","_id name profilePic")
     .populate("comments.postedBy","_id name")
+    .sort('-date')
     .then((posts)=>{
        res.json({posts})
     }).catch((err)=>{
@@ -16,6 +17,7 @@ router.get('/allpost',requiredLogin, (req,res)=>{
 router.get('/getfollowingposts',requiredLogin, (req,res)=>{
     postModel.find({postedBy:{$in:req.user.following}})
     .populate("postedBy","_id name profilePic")
+    .sort('-date')
     .populate("comments.postedBy","_id name")
     .then((posts)=>{
        res.json({posts})
