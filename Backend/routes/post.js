@@ -36,14 +36,13 @@ router.get('/mypost',requiredLogin, (req,res)=>{
 })
 
 router.post('/createpost',requiredLogin,(req,res)=>{
-    const {title,body,pic} = req.body;
-    if(!title || !body || !pic){
+    const {title,pic} = req.body;
+    if(!title || !pic){
         return res.status(422).json({error: "Please fill all the fields"});
     }
     req.user.password = undefined;
     const post = new postModel({
         title,
-        body,
         photo: pic,
         postedBy : req.user
     })

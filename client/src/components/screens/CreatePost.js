@@ -8,7 +8,6 @@ const CreatePost =  ()=>{
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [title,setTitle] = useState("");
-    const [body,setBody] = useState("");
     const [image,setImage] = useState("");
     const [url,setUrl] = useState("");
     useEffect(()=>{
@@ -23,7 +22,6 @@ const CreatePost =  ()=>{
             },
             body: JSON.stringify({
                title,
-               body,
                pic: url
             })  
         }).then((res) => res.json())
@@ -75,8 +73,6 @@ const CreatePost =  ()=>{
             <input type='text' placeholder='title' value={title} 
             onChange={(e)=>{setTitle(e.target.value)}}/>
 
-            <input type='text' placeholder='body' value={body} 
-            onChange={(e)=>{setBody(e.target.value)}} />
             <div className="file-field input-field">
       <div className="btn waves-effect waves-light #42a5f5 blue darken-1">
         <span>Upload Image</span>
