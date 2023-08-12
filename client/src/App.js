@@ -12,6 +12,7 @@ import { reducer , initialState} from './components/reducer/useReducer';
 import UserProfile from './components/screens/UserProfile';
 import FollowingUserPosts from './components/screens/FollowingUserPosts';
 import ResetPassword from './components/screens/ResetPassword';
+import NewPassword from './components/screens/NewPassword';
 
 export const UserContext = createContext();
 
@@ -46,7 +47,8 @@ useEffect(()=>{
     <Route exact path='/profile' element={<Profile/>}/>  
     <Route path='/signup' element={<Signup/>}/>
     <Route path='/create' element={<CreatePost/>}/>   
-    <Route path='/reset_password' element={<ResetPassword/>}/>   
+    <Route exact path='/reset_password' element={<ResetPassword/>}/>   
+    <Route path='/reset_password/:token' element={<NewPassword/>}/>   
     <Route path='/myfollowingPosts' element={<FollowingUserPosts/>}/>   
     <Route path='/profile/:userid' element={<UserProfile/>}/>   
     </Routes>

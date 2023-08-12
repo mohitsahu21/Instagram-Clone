@@ -68,6 +68,9 @@ const Login = ()=>{
                 <h6 className='bottom'>
                Don't have an account? <Link className='blue-text text-darken-1'  to="/signup">Sign up </Link>
                 </h6>
+                <h6 className='forget_pass'>
+               <Link className='blue-text text-darken-1'  to="/reset_password">Forgotten your password?</Link>
+                </h6>
 
             </div>
         </div>

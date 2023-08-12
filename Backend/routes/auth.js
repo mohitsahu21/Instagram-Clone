@@ -108,7 +108,7 @@ router.post('/reset-password',(req,res)=>{
                     subject: "Password Reset Link", // Subject line
                     html: `
                     <p>You requested for password reset</p>
-                    <h5>click in this <a href="http://localhost:3000/reset/${token}">link</a>link to reset password</h5>`, // html body
+                    <h4>click in this <a href="http://localhost:3000/reset_password/${token}">link</a> to reset password</h4>`, // html body
                   });
                   res.json({message:"Please check your email,password reset link has been sent to your email"})
 
@@ -120,6 +120,28 @@ router.post('/reset-password',(req,res)=>{
         })
 
      })
+})
+
+router.post('/new-password', (req,res)=>{
+    const newPassword = req.body.password ;
+    const sentToken =  req.body.token;
+    userModel.findOne({resetToken:sentToken,expireToken:{$gt:Date.now()}})
+    .then(user=>{
+        if(!user){
+            return res.status(422).json({error:"Session expired,Genrate password reset link again"})
+        }
+        bcrypt.hash(newPassword,12).then(hashedpassword=>{
+            user.password = hashedpassword;
+            user.resetToken = undefined;
+            user.expireToken = undefined;
+            user.save().then((saveduser)=>{
+             return  res.json({message:"Password updated successfully"})
+
+            })
+        })
+    }).catch((err)=>{
+        console.log(err)
+    })
 })
 
 module.exports = router;
