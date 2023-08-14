@@ -22,7 +22,6 @@ const Home = ()=>{
         }).then(res=>res.json())
         .then((result) => {
             setLoading(false);
-            console.log(result)
             setData(result.posts)})
     },[])
 
