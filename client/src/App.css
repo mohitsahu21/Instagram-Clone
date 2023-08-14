@@ -31,3 +31,65 @@ a{
 .collection-item{
   width: 100%;
 }
+
+
+
+
+.nav-btn{
+  padding: 5px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  display: none;
+  opacity: 0;
+}
+
+@media only screen and (max-width: 600px){
+     .nav-btn{
+      display: block;
+      opacity: 1;
+     }
+     .nav-wrapper{
+      background-color: aqua;
+     }
+     nav{
+      position: fixed;
+      top: 0;
+      left: 0px;
+      height: 100%;
+      width: 200px;
+      gap: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      transition:left 0.5s;
+      transform: translateX(-100vh);
+      z-index: 2;
+      background-color: aqua;
+      
+
+    }
+    .responsive_nav{
+      transform: none;
+    }
+  
+    .right{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: aqua;
+      
+      height: 100%;
+    }
+    nav ul li{
+      font-weight: bold;
+      
+    }
+   
+} 
+  

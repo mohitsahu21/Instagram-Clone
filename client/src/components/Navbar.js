@@ -11,6 +11,7 @@ function Navbar() {
    const searchModel = useRef(null);
    const [search,setSearch] = useState('');
    const [userDetails,setUserDetails] = useState([]);
+   const navRef = useRef();
 
    useEffect(()=>{
          M.Modal.init(searchModel.current)
@@ -31,10 +32,14 @@ function Navbar() {
             setUserDetails(result.user)
          })
    }
+   const showNavbar=()=>{
+      navRef.current.classList.toggle("responsive_nav");
+   }
 
    return (
-
-      <nav>
+      <>
+      
+      <nav  ref={navRef}>
          <div className="nav-wrapper white">
             <Link to={state ? "/" : "login"} className="brand-logo left">Instagram</Link>
             {state ?
@@ -51,11 +56,13 @@ function Navbar() {
                      Logout
                   </button>
                   </li>
+                  <button className='nav-btn nav-close-btn' onClick={showNavbar}><i class="material-icons">close</i></button>
                </ul>)
                :
                (<ul id="nav-mobile" className="right">
                   <li><Link to="/login">Login</Link></li>
                   <li><Link to="/signup">Sign Up</Link></li>
+                  <button className='nav-btn nav-close-btn' onClick={showNavbar}><i class="material-icons">close</i></button>
                </ul>)}
          </div>
 
@@ -89,6 +96,10 @@ function Navbar() {
     </div>
   </div>
       </nav>
+
+      <button className='nav-btn' onClick={showNavbar}><i class="material-icons">menu</i></button>
+      
+      </>
 
    )
 };
