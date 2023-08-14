@@ -152,9 +152,15 @@ const FollowingUserPosts = ()=>{
         {
             loading
             ?
+            <div className='loadingMain'>
             <div className="progress">
-            <div className="indeterminate"></div>
-        </div>
+          <div className="indeterminate"></div>
+          
+      </div>
+      <div className='loadingImgContainer'><img className='loadingImg' src="https://i.gifer.com/7plU.gif"/></div>
+      
+      
+      </div>
             :
             <div className='home'>
 
