@@ -28,5 +28,6 @@ a{
 .forget_pass{
  font-size: small;
 }
-
-
+.collection-item{
+  width: 100%;
+}

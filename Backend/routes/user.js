@@ -110,6 +110,20 @@ router.put('/updateprofilepic',requiredLogin,async (req,res)=>{
     }
 })
 
+router.post('/search-users',(req,res)=>{
+    let userPattern = new RegExp("^"+ req.body.query)
+    userModel.find({email:{$regex:userPattern}})
+    .select("_id email name profilePic")
+    .then(user=>{
+        if(!user){
+            return res.status(422).json({error:"No user found with this email"})
+        }
+        res.json({user})
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
 
 
 module.exports = router;
