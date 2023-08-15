@@ -36,7 +36,9 @@ const Home = ()=>{
             postId : id
         })
 
-       }).then(res => res.json())
+       }).then((res) => {
+        console.log(res)
+        res.json()})
        .then(result => {
            
            const newData = data.map((item) =>{
