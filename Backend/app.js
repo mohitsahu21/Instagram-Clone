@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 require("dotenv").config(); 
 const app = express();
+const cors = require("cors");
 const PORT = process.env.PORT || 5000;
 const url = process.env.DB_URL;
 
@@ -11,6 +12,11 @@ mongoose.connect(url).then((res)=>{
     
    console.log("error:"+ err)
 })
+app.use(cors({
+    credentials:true,
+    origin:reactUrl,
+    allowedHeaders:"*"
+}));
 
 require('./models/user');
 require('./models/post');
