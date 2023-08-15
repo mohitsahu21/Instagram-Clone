@@ -108,7 +108,7 @@ router.post('/reset-password',(req,res)=>{
                     subject: "Password Reset Link", // Subject line
                     html: `
                     <p>You requested for password reset</p>
-                    <h4>click in this <a href="http://localhost:3000/reset_password/${token}">link</a> to reset password</h4>`, // html body
+                    <h4>click in this <a href="https://instaclone-obaa.onrender.com/reset_password/${token}">link</a> to reset password</h4>`, // html body
                   });
                   res.json({message:"Please check your email,password reset link has been sent to your email"})
 
