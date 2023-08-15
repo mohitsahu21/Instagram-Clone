@@ -15,7 +15,7 @@ const Login = ()=>{
         if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
             return M.toast({html: "Email not valid", classes: 'rounded red'})
         }
-        fetch('/https://instaclone-api-8pcu.onrender.com/signin',
+        fetch('https://instaclone-api-8pcu.onrender.com/signin',
         {
             method:"POST",
             headers: {
@@ -25,10 +25,10 @@ const Login = ()=>{
             
                 email,
                 password
-            })  
+            })      
         }).then((res) => {
             console.log(res)
-            res.json()})
+            return res.json()})
         .then((data) =>{
            
             if(data.error){
