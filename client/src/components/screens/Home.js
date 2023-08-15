@@ -15,7 +15,7 @@ const Home = ()=>{
    
     useEffect(()=>{
         setLoading(true);
-        fetch('/https://instaclone-api-8pcu.onrender.com/allpost' , {
+        fetch('https://instaclone-api-8pcu.onrender.com/allpost' , {
             headers: {
                 "Authorization" : "Bearer " + localStorage.getItem("jwt")
             }
@@ -26,7 +26,7 @@ const Home = ()=>{
     },[])
 
     const likePost = (id)=>{
-       fetch('/https://instaclone-api-8pcu.onrender.com/like',{
+       fetch('https://instaclone-api-8pcu.onrender.com/like',{
         method:'PUT',
         headers:{
             "Content-Type":"application/json",
@@ -56,7 +56,7 @@ const Home = ()=>{
     }
     const deletePost = (postId) => {
   
-        fetch(`/https://instaclone-api-8pcu.onrender.com/deletepost/${postId}`,{
+        fetch(`https://instaclone-api-8pcu.onrender.com/deletepost/${postId}`,{
            method: "delete",
            headers:{
                "Authorization": "Bearer "+ localStorage.getItem("jwt")
@@ -66,7 +66,7 @@ const Home = ()=>{
         .catch(((err) => console.log(err)))
 }
     const unlikePost = (id)=>{
-        fetch('/https://instaclone-api-8pcu.onrender.com/unlike',{
+        fetch('https://instaclone-api-8pcu.onrender.com/unlike',{
          method:'PUT',
          headers:{
              "Content-Type":"application/json",
@@ -92,7 +92,7 @@ const Home = ()=>{
      }
 
      const deleteComment = (postId,commentId)=>{
-        fetch("/https://instaclone-api-8pcu.onrender.com/deletecomment",{
+        fetch("https://instaclone-api-8pcu.onrender.com/deletecomment",{
             method: "put",
             headers: {
                 "Content-Type":"application/json",
@@ -119,7 +119,7 @@ const Home = ()=>{
     }
 
      const makeComment = (text,postId)=>{
-        fetch("/https://instaclone-api-8pcu.onrender.com/comment",{
+        fetch("https://instaclone-api-8pcu.onrender.com/comment",{
             method: "put",
             headers: {
                 "Content-Type":"application/json",
