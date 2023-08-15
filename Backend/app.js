@@ -14,6 +14,7 @@ mongoose.connect(url).then((res)=>{
 })
 app.use(cors());
 
+
 require('./models/user');
 require('./models/post');
 
