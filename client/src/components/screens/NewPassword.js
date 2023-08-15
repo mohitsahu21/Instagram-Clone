@@ -15,7 +15,7 @@ const NewPassword = ()=>{
    
     const PostData= ()=>{
         
-        fetch('/new-password',
+        fetch('/https://instaclone-api-8pcu.onrender.com/new-password',
         {
             method:"POST",
             headers: {

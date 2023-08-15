@@ -15,7 +15,7 @@ const ResetPassword = ()=>{
         if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
             return M.toast({html: "Email not valid", classes: 'rounded red'})
         }
-        fetch('/reset-password',
+        fetch('/https://instaclone-api-8pcu.onrender.com/reset-password',
         {
             method:"POST",
             headers: {

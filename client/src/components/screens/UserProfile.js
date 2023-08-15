@@ -11,7 +11,7 @@ const UserProfile = ()=>{
     const {state,dispatch} = useContext(UserContext);
    
     useEffect(()=>{
-        fetch(`/user/${userid}`, {
+        fetch(`/https://instaclone-api-8pcu.onrender.com/user/${userid}`, {
             headers: {
                 "Authorization" : "Bearer " + localStorage.getItem("jwt")
             }
@@ -23,7 +23,7 @@ const UserProfile = ()=>{
     },[userPosts]);
    
     const followUser=()=>{
-        fetch('/follow', {
+        fetch('/https://instaclone-api-8pcu.onrender.com/follow', {
             method:"put",
             headers: {
                 "Content-Type":"application/json",
@@ -42,7 +42,7 @@ const UserProfile = ()=>{
        
     }
     const unFollowUser=()=>{
-        fetch('/unfollow', {
+        fetch('/https://instaclone-api-8pcu.onrender.com/unfollow', {
             method:"put",
             headers: {
                 "Content-Type":"application/json",

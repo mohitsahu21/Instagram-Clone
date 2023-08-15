@@ -19,7 +19,7 @@ function Navbar() {
 
    const fetchusers = (query)=>{
          setSearch(query);
-         fetch('/search-users',{
+         fetch('/https://instaclone-api-8pcu.onrender.com/search-users',{
             method:"post",
             headers:{
                "Content-Type":"application/json"
