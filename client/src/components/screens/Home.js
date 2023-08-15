@@ -23,7 +23,7 @@ const Home = ()=>{
         .then((result) => {
             setLoading(false);
             setData(result.posts)})
-    },[])
+    },[]).catch((err)=> console.log(err));
 
     const likePost = (id)=>{
        fetch('/https://instaclone-api-8pcu.onrender.com/like',{
@@ -48,7 +48,7 @@ const Home = ()=>{
             }
            })
            setData(newData)
-       })
+       }).catch((err)=> console.log(err));
 
        
     }
@@ -86,7 +86,7 @@ const Home = ()=>{
             }
            })
            setData(newData)
-        })
+        }).catch((err)=> console.log(err));
      }
 
      const deleteComment = (postId,commentId)=>{
