@@ -14,7 +14,7 @@ mongoose.connect(url).then((res)=>{
 })
 app.use(cors({
     credentials:true,
-    origin:reactUrl,
+    origin:"https://instaclone-obaa.onrender.com",
     allowedHeaders:"*"
 }));
 
