@@ -22,8 +22,8 @@ const Home = ()=>{
         }).then(res=>res.json())
         .then((result) => {
             setLoading(false);
-            setData(result.posts)})
-    },[]).catch((err)=> console.log(err));
+            setData(result.posts)}).catch((err)=> console.log(err));
+    },[])
 
     const likePost = (id)=>{
        fetch('/https://instaclone-api-8pcu.onrender.com/like',{
