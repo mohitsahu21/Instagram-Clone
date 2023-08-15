@@ -15,7 +15,7 @@ const NewPassword = ()=>{
    
     const PostData= ()=>{
         
-        fetch('/https://instaclone-api-8pcu.onrender.com/new-password',
+        fetch('https://instaclone-api-8pcu.onrender.com/new-password',
         {
             method:"POST",
             headers: {
@@ -26,7 +26,7 @@ const NewPassword = ()=>{
                 token,
                 password
             })  
-        }).then((res) => res.json())
+        }).then(res => res.json())
         .then((data) =>{
            
             if(data.error){

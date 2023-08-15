@@ -10,7 +10,7 @@ const Profile = ()=>{
    
     useEffect(()=>{
         setLoading(true);
-        fetch('/https://instaclone-api-8pcu.onrender.com/mypost' , {
+        fetch('https://instaclone-api-8pcu.onrender.com/mypost' , {
             headers: {
                 "Authorization" : "Bearer " + localStorage.getItem("jwt")
             }
@@ -18,7 +18,11 @@ const Profile = ()=>{
         .then((result) => {
             setLoading(false);
             setMyPosts(result.mypost)
-           })
+           }).catch(err=>{
+            console.log(err)
+        }).catch(err=>{
+            console.log(err)
+        })
     },[])
 
     useEffect(()=>{
@@ -33,7 +37,7 @@ const Profile = ()=>{
         })
         .then(res=>res.json())
         .then(data=>{
-           fetch("/https://instaclone-api-8pcu.onrender.com/updateprofilepic",{
+           fetch("https://instaclone-api-8pcu.onrender.com/updateprofilepic",{
             method:"put",
             headers: {
                 "Content-Type": "application/json",
@@ -47,7 +51,9 @@ const Profile = ()=>{
            .then(result => {
               localStorage.setItem("user",JSON.stringify({...state,profilePic:result.profilePic}));
               dispatch({type:"UPDATEPIC",payload : result.profilePic})
-           })
+           }).catch(err=>{
+            console.log(err)
+        })
            
         })
         .catch(err=>{

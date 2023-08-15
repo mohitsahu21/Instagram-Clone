@@ -13,7 +13,7 @@ const CreatePost =  ()=>{
     useEffect(()=>{
         if(url){
         setLoading(true);
-        fetch('/https://instaclone-api-8pcu.onrender.com/createpost',
+        fetch('https://instaclone-api-8pcu.onrender.com/createpost',
         {
             method:"POST",
             headers: {

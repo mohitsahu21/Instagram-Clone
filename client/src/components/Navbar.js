@@ -19,7 +19,7 @@ function Navbar() {
 
    const fetchusers = (query)=>{
          setSearch(query);
-         fetch('/https://instaclone-api-8pcu.onrender.com/search-users',{
+         fetch('https://instaclone-api-8pcu.onrender.com/search-users',{
             method:"post",
             headers:{
                "Content-Type":"application/json"
@@ -30,7 +30,9 @@ function Navbar() {
          }).then(res=>res.json())
          .then(result=>{
             setUserDetails(result.user)
-         })
+         }).catch(err=>{
+            console.log(err)
+        })
    }
    const showNavbar=()=>{
       navRef.current.classList.toggle("responsive_nav");

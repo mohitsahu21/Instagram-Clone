@@ -22,7 +22,9 @@ const Home = ()=>{
         }).then(res=>res.json())
         .then((result) => {
             setLoading(false);
-            setData(result.posts)}).catch((err)=> console.log(err));
+            setData(result.posts)}).catch((err)=> console.log(err)).catch(err=>{
+                console.log(err)
+            });
     },[])
 
     const likePost = (id)=>{
@@ -36,9 +38,7 @@ const Home = ()=>{
             postId : id
         })
 
-       }).then((res) => {
-        console.log(res)
-        res.json()})
+       }).then(res =>res.json())
        .then(result => {
            
            const newData = data.map((item) =>{
@@ -102,7 +102,7 @@ const Home = ()=>{
                 postId,
                 commentId
             })
-        }).then((res) => res.json())
+        }).then(res => res.json())
         .then(result => {
         
            const newData = data.map((item) =>{

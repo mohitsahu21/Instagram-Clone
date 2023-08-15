@@ -11,7 +11,7 @@ const UserProfile = ()=>{
     const {state,dispatch} = useContext(UserContext);
    
     useEffect(()=>{
-        fetch(`/https://instaclone-api-8pcu.onrender.com/user/${userid}`, {
+        fetch(`https://instaclone-api-8pcu.onrender.com/user/${userid}`, {
             headers: {
                 "Authorization" : "Bearer " + localStorage.getItem("jwt")
             }
@@ -19,11 +19,13 @@ const UserProfile = ()=>{
         .then((result) => {
             
             setUserPosts(result)
-        }) 
+        }).catch(err=>{
+            console.log(err)
+        })
     },[userPosts]);
    
     const followUser=()=>{
-        fetch('/https://instaclone-api-8pcu.onrender.com/follow', {
+        fetch('https://instaclone-api-8pcu.onrender.com/follow', {
             method:"put",
             headers: {
                 "Content-Type":"application/json",
@@ -38,11 +40,13 @@ const UserProfile = ()=>{
            
            dispatch({type:"UPDATE",payload:{followers:result.followers,following: result.following}});
            localStorage.setItem("user",JSON.stringify(result));
+        }).catch(err=>{
+            console.log(err)
         });
        
     }
     const unFollowUser=()=>{
-        fetch('/https://instaclone-api-8pcu.onrender.com/unfollow', {
+        fetch('https://instaclone-api-8pcu.onrender.com/unfollow', {
             method:"put",
             headers: {
                 "Content-Type":"application/json",
@@ -57,6 +61,8 @@ const UserProfile = ()=>{
           
            dispatch({type:"UPDATE",payload:{followers:result.followers,following: result.following}});
            localStorage.setItem("user",JSON.stringify(result));
+        }).catch(err=>{
+            console.log(err)
         });
        
     }
