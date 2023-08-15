@@ -12,11 +12,7 @@ mongoose.connect(url).then((res)=>{
     
    console.log("error:"+ err)
 })
-app.use(cors({
-    credentials:true,
-    origin:"https://instaclone-obaa.onrender.com",
-    allowedHeaders:"*"
-}));
+app.use(cors());
 
 require('./models/user');
 require('./models/post');
