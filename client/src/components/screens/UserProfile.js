@@ -6,7 +6,7 @@ import { json, useParams } from 'react-router-dom';
 
 const UserProfile = ()=>{
     const {userid} = useParams();
-    
+    const [updateProfile,setUpdateProfile] = useState(false);
     const [userPosts,setUserPosts] = useState(null);
     const {state,dispatch} = useContext(UserContext);
    
@@ -22,7 +22,7 @@ const UserProfile = ()=>{
         }).catch(err=>{
             console.log(err)
         })
-    },[]);
+    },[updateProfile]);
    
     const followUser=()=>{
         fetch('https://instaclone-api-8pcu.onrender.com/follow', {
@@ -37,7 +37,7 @@ const UserProfile = ()=>{
         }).then(res=>res.json())
         .then((result) => {
             
-           
+            setUpdateProfile(!updateProfile);
            dispatch({type:"UPDATE",payload:{followers:result.followers,following: result.following}});
            localStorage.setItem("user",JSON.stringify(result));
         }).catch(err=>{
@@ -58,7 +58,7 @@ const UserProfile = ()=>{
         }).then(res=>res.json())
         .then((result) => {
             
-          
+            setUpdateProfile(!updateProfile);
            dispatch({type:"UPDATE",payload:{followers:result.followers,following: result.following}});
            localStorage.setItem("user",JSON.stringify(result));
         }).catch(err=>{
