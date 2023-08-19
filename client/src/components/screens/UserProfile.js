@@ -22,7 +22,7 @@ const UserProfile = ()=>{
         }).catch(err=>{
             console.log(err)
         })
-    },[userPosts]);
+    },[]);
    
     const followUser=()=>{
         fetch('https://instaclone-api-8pcu.onrender.com/follow', {
